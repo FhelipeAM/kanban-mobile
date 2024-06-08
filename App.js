@@ -22,6 +22,7 @@ AppRegistry.registerComponent("main", () => App);
 const Stack = createStackNavigator();
 
 export default function App() {
+
   const [user, setUser] = useState(null);
 
   const [currentScreen, setCurrentScreen] = useState("PageList");

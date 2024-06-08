@@ -13,10 +13,10 @@ import "../components/firebase"
 
 import { auth } from "../components/firebase"
 
-import OverheadMessage, {CreateOverheadMessage} from "../components/OverheadMessage";
+import OverheadMessage, { CreateOverheadMessage } from "../components/OverheadMessage";
 
-const AddProfile = ({ navigation }) => {
-  
+const AddProfile = ({ route, navigation }) => {
+
   // const route = useRoute();
 
   const [username, setUsername] = useState("");
@@ -39,7 +39,7 @@ const AddProfile = ({ navigation }) => {
       .then(userCredentials => {
         const user = userCredentials.user;
 
-        navigation.navigate("PageList", { messageType: "success", message: "Usuário cadastrado com sucesso!"}) 
+        navigation.navigate("PageList", { messageType: "success", message: "Usuário cadastrado com sucesso!" })
       })
       .catch(error => {
 
@@ -68,6 +68,7 @@ const AddProfile = ({ navigation }) => {
       source={require("./images/bg/Gsg9-scaleform-bg.png")}
       style={styles.background}
     >
+
       <View style={styles.bgTint}></View>
 
       <View style={styles.posAbslt}>

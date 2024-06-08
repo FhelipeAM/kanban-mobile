@@ -6,7 +6,6 @@ import { getStorage } from "firebase/storage";
 
 import 'firebase/compat/firestore';
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyAbWk6D2UJCyVO1b2oqvkOIama6UWERFYs",
   authDomain: "valve-manager.firebaseapp.com",
@@ -26,5 +25,7 @@ const auth = app.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
 export const storage = getStorage(app);
+
+// const functionsForDefaultApp = firebase.functions();
 
 export { db, auth, provider }

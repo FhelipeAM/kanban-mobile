@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  Button,
   Text,
   StyleSheet,
   TextInput,
@@ -10,15 +9,19 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { auth } from "../components/firebase";
+import { auth, provider } from "../components/firebase";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [errorMessage, seterrorMessage] = useState("");
+  
+  const googleAuthLogIn = ({ navigation }) => {
+    auth.signInWithPopup(provider).catch(alert);
+  }
 
-  const entrar = ({ navigation }) => {
+  const logIn = ({ navigation }) => {
 
     auth.signInWithEmailAndPassword(email, password)
       .then(userCredentials => {
@@ -128,17 +131,17 @@ const Login = ({ navigation }) => {
 
         )}
 
-        <TouchableOpacity style={styles.button} onPress={() => entrar({navigation})}>
+        <TouchableOpacity style={styles.button} onPress={() => logIn({navigation})}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
-
-        {/* <TouchableOpacity style={styles.buttonText2} onPress={() => entrar}>
+        
+{/*     <TouchableOpacity style={styles.buttonText2} onPress={() => googleAuthLogIn({navigation})}>
           <Text style={styles.google}>
             <Image
               style={styles.gogle}
               source={require("./images/icons/google.png")}
             />
-            Sign in with google
+            Entrar com google
           </Text>
         </TouchableOpacity> */}
       </View>
