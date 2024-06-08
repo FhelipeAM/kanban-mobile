@@ -5,12 +5,17 @@ import {
   Button,
 } from "react-native";
 
+// DEVELOPER SCREEN!!! DELETE/MAKE UNREACHABLE AFTER DEVELOPMENT COMPLETED
 const PageList = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Button
         title="Go to AddProfile"
         onPress={() => navigation.navigate("_dev_addProfile")}
+      />
+      <Button
+        title="Go to Profile"
+        onPress={() => navigation.navigate("Profile")}
       />
       <Button
         title="Go to Login"

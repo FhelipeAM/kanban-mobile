@@ -1,30 +1,35 @@
 import React, { useState } from "react";
-import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { AppRegistry, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-import { db, auth, provider } from "./components/firebase"
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 
+import { auth } from "./components/firebase"
+
+// imports de telas
 import SplashScreen from "./screens/splashscreen";
 import Login from "./screens/login";
 import PageList from "./pagelist";
 import AddKanban from "./screens/addkanban";
 import Addlist from "./screens/addlist";
 import AddProfile from "./screens/_Dev_addProfile";
+import Profile from "./screens/profile";
 // import addkanban from "./screens/newlist";
-
-import OverheadMessage from "./components/OverheadMessage";
 
 AppRegistry.registerComponent("main", () => App);
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [user, setUser] = useState(null);
+
   const [currentScreen, setCurrentScreen] = useState("PageList");
   
   const [message, setMessage] = useState("")
   const [messageType, setMessageType] = useState("")
+  
+  auth.onAuthStateChanged((user) => {setUser(user)});
 
   const handleNavigationChange = (routeName) => {
     setCurrentScreen(routeName);
@@ -50,9 +55,8 @@ export default function App() {
           listeners={({ navigation }) => ({
             focus: () => handleNavigationChange("_dev_addProfile"),
           })}
-          // setMsg={setMessage}
-          // setMsgType={setMessageType}
         />
+        {/* DEVELOPER SCREEN!!! DELETE/MAKE UNREACHABLE AFTER DEVELOPMENT COMPLETED */}
         <Stack.Screen
           name="PageList"
           component={PageList}
@@ -61,6 +65,16 @@ export default function App() {
           }}
           listeners={({ navigation }) => ({
             focus: () => handleNavigationChange("PageList"),
+          })}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            headerShown: false,
+          }}
+          listeners={({ navigation }) => ({
+            focus: () => handleNavigationChange("Profile"),
           })}
         />
         <Stack.Screen
@@ -135,7 +149,7 @@ const Navbar = () => {
 
       }}
     >
-      <TouchableOpacity onPress={() => { navigation.navigate('Login') }}><Image source={require("./screens/images/icons/samplePfp.png")} style={styles.pfpImg}></Image></TouchableOpacity>
+      <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/images/icons/samplePfp.png")} style={styles.pfpImg}></Image></TouchableOpacity>
       <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
       <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
     </View>

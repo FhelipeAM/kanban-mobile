@@ -10,13 +10,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import { auth } from "../components/firebase";
+
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [errorMessage, seterrorMessage] = useState("");
 
-  const entrar = () => {
+  const entrar = ({ navigation }) => {
 
     auth.signInWithEmailAndPassword(email, password)
       .then(userCredentials => {
@@ -47,7 +49,6 @@ const Login = ({ navigation }) => {
         }
 
       });
-
 
   };
 
@@ -127,7 +128,7 @@ const Login = ({ navigation }) => {
 
         )}
 
-        <TouchableOpacity style={styles.button} onPress={() => entrar}>
+        <TouchableOpacity style={styles.button} onPress={() => entrar({navigation})}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
