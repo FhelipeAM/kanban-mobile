@@ -123,14 +123,14 @@ const Login = ({ navigation }) => {
           Esqueci minha Senha
         </Text>
 
-        <Text
+        {/* <Text
           style={{
             color: "white",
             alignItems: "center",
           }}
         >
           Não tem uma conta? <Text style={{ color: "red" }}>Cadastre-se.</Text>
-        </Text>
+        </Text> */}
 
         {errorMessage != "" && (
           <Text

@@ -15,6 +15,7 @@ import AddKanban from "./screens/addkanban";
 import Addlist from "./screens/addlist";
 import AddProfile from "./screens/_Dev_addProfile";
 import Profile from "./screens/profile/profile";
+import Main from "./screens/main";
 // import addkanban from "./screens/newlist";
 
 AppRegistry.registerComponent("main", () => App);
@@ -58,6 +59,16 @@ export default function App() {
         <Stack.Screen
           name="PageList"
           component={PageList}
+          options={{
+            headerShown: false,
+          }}
+          listeners={({ navigation }) => ({
+            focus: () => handleNavigationChange("PageList"),
+          })}
+        />
+        <Stack.Screen
+          name="Main"
+          component={Main}
           options={{
             headerShown: false,
           }}
@@ -153,7 +164,7 @@ const Navbar = ({ user, cs }) => {
 
       }}
     >
-      <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/assets/images/icons/samplePfp.png")} style={styles.pfpImg}></Image></TouchableOpacity>
+      <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/assets/images/icons/samplePfp.webp")} style={styles.pfpImg}></Image></TouchableOpacity>
       <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/assets/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
       <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
     </View>

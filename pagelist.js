@@ -22,6 +22,10 @@ const PageList = ({ navigation }) => {
         onPress={() => navigation.navigate('Login')}
       />
       <Button
+        title="Go to main"
+        onPress={() => navigation.navigate('Main')}
+      />
+      <Button
         title="Go to Splash"
         onPress={() => navigation.navigate("Splash")}
       />
