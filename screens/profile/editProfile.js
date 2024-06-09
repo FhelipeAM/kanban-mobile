@@ -11,21 +11,16 @@ import { auth } from "../../components/firebase";
 // import { getStorage } from "firebase/storage";
 
 const Profile = ({ navigation }) => {
-    const [user, setUser] = useState(null);
-    const [username, setUsername] = useState();
 
-    auth.onAuthStateChanged((user) => { setUser(user) });
+    const user = auth.currentUser;
+
+    var curUsername = "";
+
+    const [username, setUsername] = useState();
 
     function userSignOut() {
         auth.signOut()
         navigation.navigate("Login")
-    }
-
-    async function addNewTodo() {
-        await firestore.collection('users').doc(user.uid).set({
-            username: username,
-            email: email
-          });
     }
 
     if (user) {

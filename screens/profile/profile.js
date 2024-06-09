@@ -55,7 +55,7 @@ const Profile = ({ navigation }) => {
                 <Text>nome: {username}</Text>
                 <Text>email: {userEmail}</Text>
                 <Text>uid: {userUid}</Text>
-                <Button title="Logout" onPress={() => userSignOut} />
+                <Button title="Logout" onPress={userSignOut} />
             </View>
         )
     } else {

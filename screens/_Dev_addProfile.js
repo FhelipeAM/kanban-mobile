@@ -6,12 +6,15 @@ import {
   TextInput,
   Image,
   ImageBackground,
-  TouchableOpacity
+  TouchableOpacity,
+  Button
 } from "react-native";
 
 import "../components/firebase"
 
 import { auth, db } from "../components/firebase"
+
+import { launchImageLibrary } from 'react-native-image-picker';
 
 import OverheadMessage, { CreateOverheadMessage } from "../components/OverheadMessage";
 
@@ -19,12 +22,59 @@ const AddProfile = ({ route, navigation }) => {
 
   // const route = useRoute();
 
+  const { userPfp, setPfp } = useState("")
+  const [imageUri, setImageUri] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conPassword, setConfPassword] = useState("");
 
   const [errorMessage, seterrorMessage] = useState("");
+
+  const selectImage = () => {
+    launchImageLibrary({ mediaType: 'photo' }, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const source = { uri: response.assets[0].uri };
+        setImageUri(source);
+      }
+    });
+  };
+
+  const uploadImage = async () => {
+    if (!imageUri) return;
+
+    const { uri } = imageUri;
+    const filename = uri.substring(uri.lastIndexOf('/') + 1);
+    const uploadUri = uri;
+    setUploading(true);
+    setTransferred(0);
+
+    const task = storage().ref(filename).putFile(uploadUri);
+
+    task.on('state_changed', snapshot => {
+      setTransferred(
+        Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      );
+    });
+
+    try {
+      await task;
+      const url = await storage().ref(filename).getDownloadURL();
+      await auth().currentUser.updateProfile({ photoURL: url });
+      alert('Photo uploaded successfully');
+    } catch (e) {
+      console.error(e);
+    }
+
+    setUploading(false);
+  };
 
   const register = ({ navigation }) => {
 
@@ -38,7 +88,7 @@ const AddProfile = ({ route, navigation }) => {
     auth.createUserWithEmailAndPassword(email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        
+
         db.collection('users').doc(user.uid).set({
           username: username,
           email: email
@@ -87,6 +137,20 @@ const AddProfile = ({ route, navigation }) => {
           />
         </View>
         <View style={{ textAlign: "left" }}>
+          <View style={styles.container}>
+            <Button title="Select Image" onPress={selectImage} />
+            {imageUri && (
+              <Image source={{ uri: imageUri.uri }} style={styles.image} />
+            )}
+            {uploading ? (
+              <View style={styles.uploadingContainer}>
+                <Text>{transferred}% Completed!</Text>
+                <ActivityIndicator size="large" color="#0000ff" />
+              </View>
+            ) : (
+              <Button title="Upload Image" onPress={uploadImage} />
+            )}
+          </View>
 
           <Text
             style={{
