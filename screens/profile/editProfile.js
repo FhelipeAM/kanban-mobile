@@ -1,42 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Image,
     View,
     Text,
-    Button
+    TouchableOpacity,
+    TextInput,
+    StyleSheet
 } from "react-native";
 
-import { auth } from "../../components/firebase";
+import { auth, db } from "../../components/firebase";
 
 // import { getStorage } from "firebase/storage";
 
-const Profile = ({ navigation }) => {
+const EditProfile = ({ navigation }) => {
+    const [username, setUsername] = useState("");
+    const [userEmail, setEmail] = useState("");
+    const [userUid, setUid] = useState("");
+    const [imgFilePath, setimgFilePath] = useState("./assets/images/icons/samplePfp.webp");
+
+    const [newUsername, setNewUsername] = useState(username);
 
     const user = auth.currentUser;
 
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const user = auth.currentUser;
+                if (user) {
+                    const userDoc = await db.collection('users').doc(user.uid).get();
+                    if (userDoc.exists) {
+                        const userData = userDoc.data();
+                        setUsername(userData.username);
+                        setEmail(userData.email);
+                        setUid(user.uid)
+                        // setimgFilePath(userData.imgUrl)
+                    }
+                }
+            }
+            catch (error) {
+                console.log("Erro: ", error);
+            }
+        };
+
+        fetchUserData();
+
+        setNewUsername(username)
+    }, []);
+
     var curUsername = "";
 
-    const [username, setUsername] = useState();
+    console.log(username + userEmail + imgFilePath)
+    function updateUserInfo() {
 
-    function userSignOut() {
+
+        db.collection('users').doc(userUid).set({
+            username: newUsername,
+            email: userEmail,
+            imgUrl: imgFilePath,
+        });
+
         auth.signOut()
         navigation.navigate("Login")
     }
 
-    if (user) {
-        return (
-            <View style={{ marginTop: 20 }}>
-                <Image source={user.imageUrl} />
+    function cancelUserInfoUpdate() {
 
-                <Text>nome: {user.username}</Text>
-                <TextInput
-                    placeholder="User@gmail.com"
-                    onChangeText={(value) => setUsername(value)}
-                    style={styles.input}
-                />
-                <Text>email: {user.email}</Text>
-                <Text>uid: {user.uid}</Text>
-                <Button title="Logout" onPress={userSignOut} />
+        navigation.navigate("Main")
+
+    }
+
+    if (user) {
+
+        return (
+
+            <View style={styles.screen}>
+                <Image source={require("../assets/images/logo/logovalve.png")} style={styles.valveLogo}></Image>
+
+                <View style={styles.returnBtn}>
+                    <TouchableOpacity onPress={cancelUserInfoUpdate} ><Text style={styles.buttonText}>Voltar</Text></TouchableOpacity>
+                </View>
+
+                <View style={styles.afterLogo}>
+                    <Image source={require("../assets/images/icons/samplePfp.webp")} style={styles.pfp} />
+
+                    <Text style={[styles.textColor, styles.userName]}>{newUsername}</Text>
+                    <TextInput
+                        placeholder="Digite seu novo nome"
+                        value={newUsername}
+                        onChangeText={(value) => setNewUsername(value)}
+                        style={styles.input}
+                    />
+                    {/* <Text style={styles.text}>email: {userEmail}</Text> */}
+                    {/* <Text>uid: {userUid}</Text> */}
+                    <TouchableOpacity style={styles.nonDangerousBtn} onPress={updateUserInfo} ><Text style={styles.buttonText}>Aplicar alterações</Text></TouchableOpacity>
+                </View>
             </View>
         )
     } else {
@@ -49,4 +106,113 @@ const Profile = ({ navigation }) => {
 
 }
 
-export default Profile
+const styles = StyleSheet.create({
+
+    screen: {
+        flex: 1,
+        backgroundColor: "#183042",
+
+        paddingTop: 10,
+        alignItems: "center",
+        color: "white",
+    },
+
+    pfp: {
+        width: 100,
+        height: 100,
+        borderRadius: 200,
+        color: "white",
+
+        marginTop: 20
+    },
+
+    valveLogo: {
+        position: "absolute",
+        top: 0,
+        marginTop: 40,
+        width: 105,
+        height: 32,
+        color: "white",
+
+    },
+
+    returnBtn: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        marginTop: 80,
+        marginLeft: 30,
+        color: "white",
+
+        backgroundColor: "white"
+
+    },
+
+    userName: {
+        color: "#ffffff",
+        fontSize: 32
+    },
+
+    textColor: {
+        color: "#ffffff"
+    },
+
+    buttonText: {
+        fontSize: 20
+    },
+
+    afterLogo: {
+        alignItems: "center",
+        justifyContent: "center",
+        color: "white",
+        width: "100%",
+        height: "100%",
+        borderRadius: 10
+
+    },
+
+    nonDangerousBtn: {
+        width: 254,
+        height: 66,
+        borderWidth: 2,
+        borderColor: "black",
+        margin: 20,
+        display: "flex",
+        textAlign: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#ffffff",
+        borderRadius: 10
+    },
+
+    input: {
+        width: 254,
+        height: 66,
+        borderWidth: 2,
+        borderColor: "black",
+        margin: 20,
+        display: "flex",
+        textAlign: "left",
+        paddingLeft: 10,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#ffffff",
+        borderRadius: 10
+    },
+
+    DangerousBtn: {
+        width: 254,
+        height: 66,
+        borderWidth: 2,
+        borderColor: "black",
+        margin: 20,
+        display: "flex",
+        textAlign: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#F74843",
+        borderRadius: 10
+    }
+})
+
+export default EditProfile

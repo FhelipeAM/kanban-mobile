@@ -12,7 +12,7 @@ import {
 import { auth } from "../components/firebase";
 
 const Login = ({ navigation }) => {
-  
+
   // const user = auth.currentUser;
 
   const [email, setEmail] = useState("");
@@ -45,7 +45,11 @@ const Login = ({ navigation }) => {
       .catch(error => {
 
         switch (error.code) {
+
           case 'auth/user-not-found':
+            seterrorMessage('Usuário não encontrado. Verifique seu email e tente novamente.');
+            break;
+          case 'auth/invalid-credential':
             seterrorMessage('Usuário não encontrado. Verifique seu email e tente novamente.');
             break;
           case 'auth/wrong-password':

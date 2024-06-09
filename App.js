@@ -15,6 +15,7 @@ import AddKanban from "./screens/addkanban";
 import Addlist from "./screens/addlist";
 import AddProfile from "./screens/_Dev_addProfile";
 import Profile from "./screens/profile/profile";
+import EditProfile from "./screens/profile/editProfile";
 import Main from "./screens/main";
 // import addkanban from "./screens/newlist";
 
@@ -124,6 +125,16 @@ export default function App() {
           }}
           listeners={({ navigation }) => ({
             focus: () => handleNavigationChange("addlist"),
+          })}
+        />
+        <Stack.Screen
+          name="editProfile"
+          component={EditProfile}
+          options={{
+            headerShown: false,
+          }}
+          listeners={({ navigation }) => ({
+            focus: () => handleNavigationChange("editProfile"),
           })}
         />
       </Stack.Navigator>

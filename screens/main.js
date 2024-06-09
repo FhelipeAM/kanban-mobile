@@ -11,76 +11,16 @@ import {
 
 import "../components/firebase"
 
-import { doc, getDoc } from "firebase/firestore";
-
 import { auth, db } from "../components/firebase"
-import { Colors } from "react-native/Libraries/NewAppScreen";
+
 const Main = ({ navigation }) => {
 
     const user = auth.currentUser;
-
-    // var test = db.collection('kanban', ref => ref.where('participants', '==', user.email))
-
-    // test.subscribe(data => console.log(data))
 
     if (!user) {
         navigation.navigate("Login")
         return
     }
-
-    console.log(user.email)
-
-    // const UserOwnedKanbans = () => {
-    //     var UOKInfo = []
-
-    //     db.collection("kanban").where('project_owner_email', '==',
-    //         user.email)
-    //         .get()
-    //         .then(snapshot => {
-    //             if (snapshot.empty) {
-    //                 console.log('nao tem...');
-    //                 return;
-    //             }
-
-    //             var i = 0
-
-    //             snapshot.forEach(doc => {
-    //                 UOKInfo[i] = Object.entries(doc.data());
-
-    //                 console.log("index = " + i + " array: " + UOKInfo[i])
-
-    //                 i++
-
-    //                 return (
-    //                     <View style={{ backgroundColor: "white" }}>
-    //                         {UOKInfo.map((item, index) => {
-    //                             // console.log("roda ae", item);
-
-    //                             item.map((item2, index) => {
-    //                                 // console.log("roda ae 2", item2);
-    //                                 console.log("roda ae 2", item2[1]);
-
-    //                                 return (
-    //                                     <View>
-    //                                         <Text style={{ color: "white" }}>
-    //                                             {item2[1]}
-    //                                         </Text>
-    //                                     </View>
-    //                                 )
-    //                             })
-    //                         })}
-    //                     </View>
-    //                 );
-
-
-    //             });
-    //         })
-    //         .catch(err => {
-    //             console.log('não foi possivel completar a ação: ', err);
-    //             return;
-    //         });
-    // }
-
 
     const UserOwnedKanbans = () => {
         const [UOKInfo, setUOKInfo] = useState([]);
