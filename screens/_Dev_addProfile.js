@@ -11,7 +11,7 @@ import {
 
 import "../components/firebase"
 
-import { auth } from "../components/firebase"
+import { auth, db } from "../components/firebase"
 
 import OverheadMessage, { CreateOverheadMessage } from "../components/OverheadMessage";
 
@@ -38,6 +38,11 @@ const AddProfile = ({ route, navigation }) => {
     auth.createUserWithEmailAndPassword(email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
+        
+        db.collection('users').doc(user.uid).set({
+          username: username,
+          email: email
+        });
 
         navigation.navigate("PageList", { messageType: "success", message: "Usuário cadastrado com sucesso!" })
       })
@@ -60,12 +65,15 @@ const AddProfile = ({ route, navigation }) => {
             seterrorMessage('Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.');
             break;
         }
+
+        console.log(error)
+
       });
   }
 
   return (
     <ImageBackground
-      source={require("./images/bg/Gsg9-scaleform-bg.png")}
+      source={require("./assets/images/bg/Gsg9-scaleform-bg.png")}
       style={styles.background}
     >
 
@@ -75,7 +83,7 @@ const AddProfile = ({ route, navigation }) => {
         <View style={styles.imageContainer}>
           <Image
             style={styles.Veiga}
-            source={require("./images/logo/logovalve.png")}
+            source={require("./assets/images/logo/logovalve.png")}
           />
         </View>
         <View style={{ textAlign: "left" }}>

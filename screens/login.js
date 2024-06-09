@@ -9,17 +9,25 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { auth, provider } from "../components/firebase";
+import { auth } from "../components/firebase";
 
 const Login = ({ navigation }) => {
+  
+  // const user = auth.currentUser;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [errorMessage, seterrorMessage] = useState("");
-  
-  const googleAuthLogIn = ({ navigation }) => {
-    auth.signInWithPopup(provider).catch(alert);
-  }
+
+  // if (user) {
+
+  //   // CHANGE TO MAIN PAGE
+  //   navigation.navigate('PageList')
+
+  // }
+
+  // console.log(user);
 
   const logIn = ({ navigation }) => {
 
@@ -51,13 +59,15 @@ const Login = ({ navigation }) => {
             break;
         }
 
+        console.log(error)
+
       });
 
   };
 
   return (
     <ImageBackground
-      source={require("./images/bg/Gsg9-scaleform-bg.png")}
+      source={require("./assets/images/bg/Gsg9-scaleform-bg.png")}
       style={styles.background}
     >
       <View style={styles.bgTint}></View>
@@ -66,7 +76,7 @@ const Login = ({ navigation }) => {
         <View style={styles.imageContainer}>
           <Image
             style={styles.Veiga}
-            source={require("./images/logo/logovalve.png")}
+            source={require("./assets/images/logo/logovalve.png")}
           />
         </View>
         <View style={{ textAlign: "left" }}>
@@ -131,15 +141,15 @@ const Login = ({ navigation }) => {
 
         )}
 
-        <TouchableOpacity style={styles.button} onPress={() => logIn({navigation})}>
+        <TouchableOpacity style={styles.button} onPress={() => logIn({ navigation })}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
-        
-{/*     <TouchableOpacity style={styles.buttonText2} onPress={() => googleAuthLogIn({navigation})}>
+
+        {/*     <TouchableOpacity style={styles.buttonText2} onPress={() => googleAuthLogIn({navigation})}>
           <Text style={styles.google}>
             <Image
               style={styles.gogle}
-              source={require("./images/icons/google.png")}
+              source={require("./assets/images/icons/google.png")}
             />
             Entrar com google
           </Text>
@@ -237,4 +247,12 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 22, // Aumenta o tamanho da fonte do texto do botão
   },
+  errormsg: {
+    color: "#FA352D",
+    alignItems: "center",
+    backgroundColor: "#323232",
+    borderRadius: 10,
+    padding: 7,
+    margin: 10
+  }
 });

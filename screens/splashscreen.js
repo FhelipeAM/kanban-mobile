@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 const SplashScreen = ({ navigation }) => {
+
   async function redirectAfterTime() {
     setTimeout(() => {
       navigation.navigate('Login');
@@ -20,12 +21,12 @@ const SplashScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require("./images/bg/Captura de tela 2024-06-06 160614.png")}
+      source={require("./assets/images/bg/Captura de tela 2024-06-06 160614.png")}
       style={styles.backgroundImage}
     >
       <View style={styles.container}></View>
       <Image
-        source={require("./images/logo/logovalve.png")}
+        source={require("./assets/images/logo/logovalve.png")}
         style={styles.Logo}
       ></Image>
     </ImageBackground>
