@@ -48,8 +48,8 @@ export default function App() {
           component={AddProfile}
           options={{
             headerShown: false,
-            setMsg:{setMessage},
-            setMsgType:{setMessageType}
+            setMsg: { setMessage },
+            setMsgType: { setMessageType }
           }}
           listeners={({ navigation }) => ({
             focus: () => handleNavigationChange("_dev_addProfile"),
@@ -141,34 +141,37 @@ export default function App() {
 
 const Navbar = ({ user, cs }) => {
   const navigation = useNavigation();
-  const navbarHeight = 60;
 
   // if (!user && cs != "Login") {
 
   //   navigation.navigate('Login')
-    
+
   // } 
+  if (user) {
+    return (
+      <View
+        style={styles.navbar}
+      >
 
-  return (
-    <View
-      style={{
-        position: "absolute",
-        display: "flex",
-        flexDirection: "row",
-        bottom: 0,
-        width: "100%",
-        height: navbarHeight,
-        justifyContent: "space-around",
-        backgroundColor: "#2E2F30",
-        alignItems: "center",
+        <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/assets/images/icons/samplePfp.webp")} style={styles.pfpImg}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/assets/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
 
-      }}
-    >
-      <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/assets/images/icons/samplePfp.webp")} style={styles.pfpImg}></Image></TouchableOpacity>
-      <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/assets/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
-      <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
-    </View>
-  );
+      </View>
+    );
+  } else {
+    return (
+      <View
+        style={styles.navbar}
+      >
+
+        <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/assets/images/icons/npPfp_noUser.jpg")} style={styles.pfpImg}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/assets/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
+
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -199,6 +202,19 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway-ThinItalic',
     fontSize: 20,
   },
+
+  navbar: {
+    position: "absolute",
+    display: "flex",
+    flexDirection: "row",
+    bottom: 0,
+    width: "100%",
+    height: 60,
+    justifyContent: "space-around",
+    backgroundColor: "#2E2F30",
+    alignItems: "center",
+
+  }
 
 });
 

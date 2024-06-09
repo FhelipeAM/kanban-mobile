@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
@@ -11,8 +11,166 @@ import {
 
 import "../components/firebase"
 
+import { doc, getDoc } from "firebase/firestore";
+
 import { auth, db } from "../components/firebase"
+import { Colors } from "react-native/Libraries/NewAppScreen";
 const Main = ({ navigation }) => {
+
+    const user = auth.currentUser;
+
+    // var test = db.collection('kanban', ref => ref.where('participants', '==', user.email))
+
+    // test.subscribe(data => console.log(data))
+
+    if (!user) {
+        navigation.navigate("Login")
+        return
+    }
+
+    console.log(user.email)
+
+    // const UserOwnedKanbans = () => {
+    //     var UOKInfo = []
+
+    //     db.collection("kanban").where('project_owner_email', '==',
+    //         user.email)
+    //         .get()
+    //         .then(snapshot => {
+    //             if (snapshot.empty) {
+    //                 console.log('nao tem...');
+    //                 return;
+    //             }
+
+    //             var i = 0
+
+    //             snapshot.forEach(doc => {
+    //                 UOKInfo[i] = Object.entries(doc.data());
+
+    //                 console.log("index = " + i + " array: " + UOKInfo[i])
+
+    //                 i++
+
+    //                 return (
+    //                     <View style={{ backgroundColor: "white" }}>
+    //                         {UOKInfo.map((item, index) => {
+    //                             // console.log("roda ae", item);
+
+    //                             item.map((item2, index) => {
+    //                                 // console.log("roda ae 2", item2);
+    //                                 console.log("roda ae 2", item2[1]);
+
+    //                                 return (
+    //                                     <View>
+    //                                         <Text style={{ color: "white" }}>
+    //                                             {item2[1]}
+    //                                         </Text>
+    //                                     </View>
+    //                                 )
+    //                             })
+    //                         })}
+    //                     </View>
+    //                 );
+
+
+    //             });
+    //         })
+    //         .catch(err => {
+    //             console.log('não foi possivel completar a ação: ', err);
+    //             return;
+    //         });
+    // }
+
+
+    const UserOwnedKanbans = () => {
+        const [UOKInfo, setUOKInfo] = useState([]);
+
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const snapshot = await db.collection("kanban")
+                        .where('project_owner_email', '==', user.email)
+                        .get();
+
+                    if (snapshot.empty) {
+                        console.log('nao tem...');
+                        return;
+                    }
+
+                    const data = snapshot.docs.map(doc => doc.data());
+                    setUOKInfo(data);
+                } catch (err) {
+                    console.log('não foi possivel completar a ação: ', err);
+                }
+            };
+
+            fetchData();
+        }, [user.email]);
+
+        return (
+            <View style={{ backgroundColor: "white", padding: 10 }}>
+                {UOKInfo.map((item, index) => (
+                    <View key={index} style={{ marginBottom: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5 }}>
+                        <Text style={{ color: "black", marginBottom: 5 }}>
+                            Project Name: {item.project_name}
+                        </Text>
+                        <Text style={{ color: "black", marginBottom: 5 }}>
+                            Project Owner: {item.project_owner_name}
+                        </Text>
+                        <Text style={{ color: "black" }}>
+                            Delivery Date: {item.delivery_date}
+                        </Text>
+                    </View>
+                ))}
+            </View>
+        );
+    };
+
+    const UserIncludedKanbans = () => {
+
+        const [UOKInfo, setUOKInfo] = useState([]);
+
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const snapshot = await db.collection("kanban")
+                        .where('participants', 'array-contains', user.email)
+                        .get();
+
+                    if (snapshot.empty) {
+                        console.log('nao tem...');
+                        return;
+                    }
+
+                    const data = snapshot.docs.map(doc => doc.data());
+                    setUOKInfo(data);
+                } catch (err) {
+                    console.log('não foi possivel completar a ação: ', err);
+                }
+            };
+
+            fetchData();
+        }, [user.email]);
+
+        return (
+            <View style={{ backgroundColor: "white", padding: 10 }}>
+                {UOKInfo.map((item, index) => (
+                    <View key={index} style={{ marginBottom: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5 }}>
+                        <Text style={{ color: "black", marginBottom: 5 }}>
+                            Project Name: {item.project_name}
+                        </Text>
+                        <Text style={{ color: "black", marginBottom: 5 }}>
+                            Project Owner: {item.project_owner_name}
+                        </Text>
+                        <Text style={{ color: "black" }}>
+                            Delivery Date: {item.delivery_date}
+                        </Text>
+                    </View>
+                ))}
+            </View>
+        );
+    }
+    // console.log()
 
     return (
         <ImageBackground
@@ -24,7 +182,12 @@ const Main = ({ navigation }) => {
             <View style={styles.posAbslt}>
                 <Image source={require("./assets/images/logo/logovalve.png")} style={styles.valveLogo}></Image>
 
-                <Text>Main</Text>
+                <View style={styles.afterLogo}>
+
+                    <UserOwnedKanbans />
+                    <UserIncludedKanbans />
+
+                </View>
             </View>
         </ImageBackground>
     );
@@ -33,6 +196,12 @@ const Main = ({ navigation }) => {
 
 //============================================ESTILIZAÇÃO========================================================================
 const styles = StyleSheet.create({
+
+    afterLogo: {
+        backgroundColor: "white"
+
+    },
+
     valveLogo: {
         position: "absolute",
         top: 0,

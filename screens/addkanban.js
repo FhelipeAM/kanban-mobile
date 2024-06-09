@@ -26,7 +26,7 @@ const InputsContainer = ({ navigation }) => {
 
   const [participants, setparticipants] = useState([]);
   const [projName, setprojName] = useState("");
-  const [deliverDate, setdeliverDate] = useState(9);
+  const [deliverDate, setdeliverDate] = useState("");
   const [participantEmail, setparticipantEmail] = useState("");
 
   const KanbanTitles = [
@@ -44,7 +44,7 @@ const InputsContainer = ({ navigation }) => {
           if (userDoc.exists) {
             const userData = userDoc.data();
             setUsername(userData.username);
-            setEmail(userData.email);
+            setEmail(userData.email.toLowerCase());
             setUid(user.uid)
             setimgFilePath(userData.imgUrl)
           }
@@ -63,7 +63,7 @@ const InputsContainer = ({ navigation }) => {
 
     if (user) {
 
-      db.collection('kanban').doc(user.uid).set({
+      db.collection('kanban').doc(Math.random().toString(36).substr(2)).set({
         project_name: projName,
         delivery_date: deliverDate,
         project_owner_name: username,
@@ -81,11 +81,10 @@ const InputsContainer = ({ navigation }) => {
 
     if (participantEmail != "") {
 
-      setparticipants({...participants, participantEmail})
+      addedEmail = participantEmail.toLowerCase()
+
+      setparticipants([ ...participants, addedEmail ])
       setparticipantEmail("")
-
-      i ++
-
     }
 
     console.log(participants)
@@ -135,7 +134,7 @@ const InputsContainer = ({ navigation }) => {
             onChangeText={setparticipantEmail}
             placeholder="participante@email.com"
           />
-          <TouchableOpacity style={styles.al} onPress={() => addParticipant()}>
+          <TouchableOpacity style={styles.al} onPress={addParticipant}>
             <Text style={styles.addUser}>+</Text>
           </TouchableOpacity>
 
