@@ -19,6 +19,7 @@ import KanbanContent from "./screens/kanbanPages/kanban-content";
 import Main from "./screens/main";
 import Addlist from "./screens/kanbanItemPages/addlist";
 import UpdateList from "./screens/kanbanItemPages/updatelist";
+import DeleteList from "./screens/kanbanItemPages/deletelist";
 
 AppRegistry.registerComponent("main", () => App);
 
@@ -40,7 +41,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         // DEVELOPER-- switch to Splash after all the software is completed
-        initialRouteName="PageList"
+        initialRouteName="Splash"
         screenOptions={{
           headerShown: false,
         }}
@@ -158,6 +159,16 @@ export default function App() {
             focus: () => handleNavigationChange("updateList"),
           })}
         />
+        <Stack.Screen
+          name="deleteList"
+          component={DeleteList}
+          options={{
+            headerShown: false,
+          }}
+          listeners={({ navigation }) => ({
+            focus: () => handleNavigationChange("deleteList"),
+          })}
+        />
       </Stack.Navigator>
 
       {/* {route.params.messageType && route.params.messageType && (
@@ -187,7 +198,7 @@ const Navbar = ({ user, cs }) => {
 
         <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/_assets/images/icons/samplePfp.webp")} style={styles.pfpImg}></Image></TouchableOpacity>
         <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/_assets/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
-        <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/_assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('Main') }}><Image source={require("./screens/_assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
 
       </View>
     );

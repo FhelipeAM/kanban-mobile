@@ -38,7 +38,6 @@ const UpdateList = ({ route, navigation }) => {
             setUsername(userData.username);
             setEmail(userData.email.toLowerCase());
             setUid(user.uid)
-            // setimgFilePath(userData.imgUrl)
           }
         }
       }
@@ -147,7 +146,7 @@ const UpdateList = ({ route, navigation }) => {
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.al}>
-              <Text style={styles.buttonText2} onPress={submit}>ADICIONAR</Text>
+              <Text style={styles.buttonText2} onPress={submit}>EDITAR</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.al}>
               <Text style={styles.buttonText} onPress={cancel}>CANCELAR</Text>

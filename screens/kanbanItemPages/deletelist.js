@@ -14,7 +14,7 @@ import SelectDropdown from "react-native-select-dropdown";
 
 import { auth, db } from "../../components/firebase"
 
-const Addlist = ({ route, navigation }) => {
+const DeleteList = ({ route, navigation }) => {
 
   const user = auth.currentUser;
   const [username, setUsername] = useState("");
@@ -22,7 +22,10 @@ const Addlist = ({ route, navigation }) => {
   const [userUid, setUid] = useState("");
   const [imgFilePath, setimgFilePath] = useState("./_assets/images/icons/samplePfp.webp");
 
-  const { projectId } = route.params;
+  const [itemName, setItemName] = useState("");
+  const [itemStatus, setItemStatus] = useState("");
+
+  const { itemUid, projectId } = route.params;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -43,11 +46,26 @@ const Addlist = ({ route, navigation }) => {
       }
     };
 
+    const fetchItemData = async () => {
+      try {
+        const itemDoc = await db.collection('kanban-itens').doc(itemUid).get();
+        if (itemDoc.exists) {
+          const itemData = itemDoc.data();
+          setItemName(itemData.item_name);
+          setItemStatus(itemData.item_status);
+        }
+
+        console.log(itemData)
+      }
+      catch (error) {
+        console.log("Erro: ", error);
+      }
+    };
+
     fetchUserData();
+    fetchItemData();
 
   }, []);
-
-  const [itemName, setitemName] = useState("");
 
   const KanbanTitles = [
     { title: "A fazer" },
@@ -57,18 +75,9 @@ const Addlist = ({ route, navigation }) => {
 
   const submit = () => {
 
-    var item_uid = Math.random().toString(36).substr(2)
+    console.log(itemUid)
 
-    db.collection('kanban-itens').doc(item_uid).set({
-      item_name: itemName,
-      item_uid: item_uid,
-      item_status: "A fazer",
-      item_owner_name: username,
-      item_owner_email: userEmail,
-      item_owner_uid: userUid,
-      project_uid: projectId,
-    });
-
+    db.collection('kanban-itens').doc(itemUid).delete()
 
     navigation.navigate("kanbanContent", { projectId })
   }
@@ -86,25 +95,13 @@ const Addlist = ({ route, navigation }) => {
 
         <View style={styles.box}>
 
-          <Text style={styles.textotitulo}>Nova Lista</Text>
+          <Text style={styles.textotitulo}>Deseja excluir?</Text>
+          <Text style={styles.textosubtitulo}>{itemName}</Text>
 
-          <TextInput
-            style={styles.input}
-            value={itemName}
-            onChangeText={setitemName}
-            placeholder="Nome da tarefa"
-          />
-
-          {/* <TextInput
-            style={styles.input}
-            value={colunas}
-            onChangeText={setColunas}
-            placeholder="Título"
-          /> */}
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.al}>
-              <Text style={styles.buttonText2} onPress={submit}>ADICIONAR</Text>
+              <Text style={styles.buttonText2} onPress={submit}>EDITAR</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.al}>
               <Text style={styles.buttonText} onPress={cancel}>CANCELAR</Text>
@@ -135,7 +132,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     width: 333,
-    height: 269,
+    height: 329,
   },
   //INPUTS
   input: {
@@ -152,7 +149,13 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     fontSize: 40,
-    padding: 20,
+    padding: 4,
+  },
+  textosubtitulo: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    padding: 5,
   },
   buttonText: {
     color: "white",
@@ -238,4 +241,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Addlist;
+export default DeleteList;

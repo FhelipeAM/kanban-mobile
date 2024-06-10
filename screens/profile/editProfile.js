@@ -20,6 +20,11 @@ const EditProfile = ({ navigation }) => {
 
     const [newUsername, setNewUsername] = useState(username);
 
+    const [itemName, setItemName] = useState("");
+    const [itemStatus, setItemStatus] = useState("");
+    const [itemUid, setitemUid] = useState("");
+    const [projectUid, setprojectUid] = useState("");
+
     const user = auth.currentUser;
 
     useEffect(() => {
@@ -31,9 +36,8 @@ const EditProfile = ({ navigation }) => {
                     if (userDoc.exists) {
                         const userData = userDoc.data();
                         setUsername(userData.username);
-                        setEmail(userData.email);
+                        setEmail(userData.email.toLowerCase());
                         setUid(user.uid)
-                        // setimgFilePath(userData.imgUrl)
                     }
                 }
             }
@@ -51,7 +55,6 @@ const EditProfile = ({ navigation }) => {
 
     console.log(username + userEmail + imgFilePath)
     function updateUserInfo() {
-
 
         db.collection('users').doc(userUid).set({
             username: newUsername,
@@ -90,8 +93,6 @@ const EditProfile = ({ navigation }) => {
                         onChangeText={(value) => setNewUsername(value)}
                         style={styles.input}
                     />
-                    {/* <Text style={styles.text}>email: {userEmail}</Text> */}
-                    {/* <Text>uid: {userUid}</Text> */}
                     <TouchableOpacity style={styles.nonDangerousBtn} onPress={updateUserInfo} ><Text style={styles.buttonText}>Aplicar alterações</Text></TouchableOpacity>
                 </View>
             </View>

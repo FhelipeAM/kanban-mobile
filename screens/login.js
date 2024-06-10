@@ -40,7 +40,7 @@ const Login = ({ navigation }) => {
           uid: user.uid,
         };
 
-        navigation.navigate('PageList', { userInfo });
+        navigation.navigate('Main', { userInfo });
       })
       .catch(error => {
 

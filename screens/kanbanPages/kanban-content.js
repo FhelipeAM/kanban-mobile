@@ -30,12 +30,20 @@ const KanbanContent = ({ route, navigation }) => {
         { title: "Fazendo" },
         { title: "feito" }
     ];
-    
-    const openKanbanItemWithId = (itemUid) => {
+
+    const openKanbanEditItemWithId = (itemUid) => {
 
         console.log("itemUid" + itemUid)
 
         navigation.navigate("updateList", { itemUid, projectId })
+
+    }
+
+    const openKanbanDeleteItemWithId = (itemUid) => {
+
+        console.log("itemUid" + itemUid)
+
+        navigation.navigate("deleteList", { itemUid, projectId })
 
     }
 
@@ -69,19 +77,25 @@ const KanbanContent = ({ route, navigation }) => {
         return (
             <View style={{ padding: 10 }}>
                 {KI.map((item, index) => (
-                    <TouchableOpacity onPress={() => { openKanbanItemWithId(item.item_uid) }}>
-                        <View key={index} style={{ marginBottom: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5 }}>
-                            <Text style={{ color: "black", marginBottom: 5 }}>
-                                item Name: {item.item_name}
-                            </Text>
-                            <Text style={{ color: "black", marginBottom: 5 }}>
-                                item Owner: {item.item_owner_name}
-                            </Text>
-                            <Text style={{ color: "black" }}>
-                                Delivery Date: {item.delivery_date}
-                            </Text>
+                    <View key={index} style={{ marginBottom: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5 }}>
+                        <View style={{display: "flex", flexDirection: "row", alignSelf: "flex-end"}}>
+                            <TouchableOpacity style={{backgroundColor: "gray", marginLeft: 20}} onPress={() => { openKanbanEditItemWithId(item.item_uid) }}>
+                                <Text>Editar</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{backgroundColor: "red", marginLeft: 20}} onPress={() => { openKanbanDeleteItemWithId(item.item_uid) }}>
+                                <Text>Deletar</Text>
+                            </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
+                        <Text style={{ color: "black", marginBottom: 5 }}>
+                            item Name: {item.item_name}
+                        </Text>
+                        <Text style={{ color: "black", marginBottom: 5 }}>
+                            item Owner: {item.item_owner_name}
+                        </Text>
+                        <Text style={{ color: "black" }}>
+                            Delivery Date: {item.delivery_date}
+                        </Text>
+                    </View>
                 ))}
             </View>
         );

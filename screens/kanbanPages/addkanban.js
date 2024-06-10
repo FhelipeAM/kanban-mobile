@@ -27,7 +27,7 @@ const InputsContainer = ({ navigation }) => {
   const [deliverDate, setdeliverDate] = useState("");
   const [participantEmail, setparticipantEmail] = useState("");
 
-  
+
   const KanbanTitles = [
     { title: "A fazer" },
     { title: "Fazendo" },
@@ -85,7 +85,7 @@ const InputsContainer = ({ navigation }) => {
 
       addedEmail = participantEmail.toLowerCase()
 
-      setparticipants([ ...participants, addedEmail ])
+      setparticipants([...participants, addedEmail])
       setparticipantEmail("")
     }
 
@@ -123,7 +123,6 @@ const InputsContainer = ({ navigation }) => {
             onChangeText={setprojName}
             placeholder="Nome do projeto"
           />
-          {/* <Text style={styles.label}>Data de entrega: </Text> */}
           <TextInput
             style={styles.input}
             value={deliverDate}
