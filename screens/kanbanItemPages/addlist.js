@@ -12,7 +12,7 @@ import {
 
 import SelectDropdown from "react-native-select-dropdown";
 
-import { auth, db } from "../components/firebase"
+import { auth, db } from "../../components/firebase"
 
 const Addlist = ({ route, navigation }) => {
 
@@ -20,7 +20,7 @@ const Addlist = ({ route, navigation }) => {
   const [username, setUsername] = useState("");
   const [userEmail, setEmail] = useState("");
   const [userUid, setUid] = useState("");
-  const [imgFilePath, setimgFilePath] = useState("./assets/images/icons/samplePfp.webp");
+  const [imgFilePath, setimgFilePath] = useState("./_assets/images/icons/samplePfp.webp");
 
   const { projectId } = route.params;
 
@@ -85,7 +85,7 @@ const Addlist = ({ route, navigation }) => {
 
   return (
     <ImageBackground
-      // source={require("./assets/images/bg/fundin.webp")}
+      // source={require("./_assets/images/bg/fundin.webp")}
       style={styles.background}
     >
       <View style={styles.container}>

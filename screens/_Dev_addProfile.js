@@ -20,7 +20,7 @@ const AddProfile = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conPassword, setConfPassword] = useState("");
-  const [imgFilePath, setimgFilePath] = useState("./assets/images/icons/samplePfp.webp");
+  const [imgFilePath, setimgFilePath] = useState("./_assets/images/icons/samplePfp.webp");
 
   const [errorMessage, seterrorMessage] = useState("");
 
@@ -72,7 +72,7 @@ const AddProfile = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require("./assets/images/bg/Gsg9-scaleform-bg.png")}
+      source={require("./_assets/images/bg/Gsg9-scaleform-bg.png")}
       style={styles.background}
     >
 
@@ -82,7 +82,7 @@ const AddProfile = ({ navigation }) => {
         <View style={styles.imageContainer}>
           <Image
             style={styles.Veiga}
-            source={require("./assets/images/logo/logovalve.png")}
+            source={require("./_assets/images/logo/logovalve.png")}
           />
         </View>
         <View style={{ textAlign: "left" }}>

@@ -11,13 +11,13 @@ import { auth } from "./components/firebase"
 import SplashScreen from "./screens/splashscreen";
 import Login from "./screens/login";
 import PageList from "./pagelist";
-import AddKanban from "./screens/addkanban";
+import AddKanban from "./screens/kanbanPages/addkanban";
 import AddProfile from "./screens/_Dev_addProfile";
 import Profile from "./screens/profile/profile";
 import EditProfile from "./screens/profile/editProfile";
-import KanbanContent from "./screens/kanban-content";
+import KanbanContent from "./screens/kanbanPages/kanban-content";
 import Main from "./screens/main";
-import Addlist from "./screens/addlist";
+import Addlist from "./screens/kanbanItemPages/addlist";
 
 AppRegistry.registerComponent("main", () => App);
 
@@ -174,9 +174,9 @@ const Navbar = ({ user, cs }) => {
         style={styles.navbar}
       >
 
-        <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/assets/images/icons/samplePfp.webp")} style={styles.pfpImg}></Image></TouchableOpacity>
-        <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/assets/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
-        <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/_assets/images/icons/samplePfp.webp")} style={styles.pfpImg}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/_assets/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/_assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
 
       </View>
     );
@@ -186,9 +186,9 @@ const Navbar = ({ user, cs }) => {
         style={styles.navbar}
       >
 
-        <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/assets/images/icons/npPfp_noUser.jpg")} style={styles.pfpImg}></Image></TouchableOpacity>
-        <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/assets/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
-        <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/_assets/images/icons/npPfp_noUser.jpg")} style={styles.pfpImg}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/_assets/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/_assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
 
       </View>
     );

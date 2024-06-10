@@ -126,13 +126,13 @@ const Main = ({ navigation }) => {
 
     return (
         <ImageBackground
-            source={require("./assets/images/bg/Gsg9-scaleform-bg.png")}
+            source={require("./_assets/images/bg/Gsg9-scaleform-bg.png")}
             style={styles.background}
         >
 
             <View style={styles.bgTint}></View>
             <View style={styles.posAbslt}>
-                <Image source={require("./assets/images/logo/logovalve.png")} style={styles.valveLogo}></Image>
+                <Image source={require("./_assets/images/logo/logovalve.png")} style={styles.valveLogo}></Image>
 
                 <View style={styles.afterLogo}>
 

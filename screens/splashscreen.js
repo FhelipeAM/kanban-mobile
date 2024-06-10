@@ -21,12 +21,12 @@ const SplashScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require("./assets/images/bg/Captura de tela 2024-06-06 160614.png")}
+      source={require("./_assets/images/bg/Captura de tela 2024-06-06 160614.png")}
       style={styles.backgroundImage}
     >
       <View style={styles.container}></View>
       <Image
-        source={require("./assets/images/logo/logovalve.png")}
+        source={require("./_assets/images/logo/logovalve.png")}
         style={styles.Logo}
       ></Image>
     </ImageBackground>

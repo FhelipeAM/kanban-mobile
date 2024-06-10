@@ -71,7 +71,7 @@ const Login = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require("./assets/images/bg/Gsg9-scaleform-bg.png")}
+      source={require("./_assets/images/bg/Gsg9-scaleform-bg.png")}
       style={styles.background}
     >
       <View style={styles.bgTint}></View>
@@ -80,7 +80,7 @@ const Login = ({ navigation }) => {
         <View style={styles.imageContainer}>
           <Image
             style={styles.Veiga}
-            source={require("./assets/images/logo/logovalve.png")}
+            source={require("./_assets/images/logo/logovalve.png")}
           />
         </View>
         <View style={{ textAlign: "left" }}>
@@ -153,7 +153,7 @@ const Login = ({ navigation }) => {
           <Text style={styles.google}>
             <Image
               style={styles.gogle}
-              source={require("./assets/images/icons/google.png")}
+              source={require("./_assets/images/icons/google.png")}
             />
             Entrar com google
           </Text>

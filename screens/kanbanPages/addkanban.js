@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { auth, db } from "../components/firebase"
+import { auth, db } from "../../components/firebase"
 
 const InputsContainer = ({ navigation }) => {
 
@@ -108,7 +108,7 @@ const InputsContainer = ({ navigation }) => {
 
   return (
     <ImageBackground
-      // source={require("./assets/images/bg/fundin.webp")}
+      // source={require("../_assets/images/bg/fundin.webp")}
       style={styles.background}
     >
       <View style={styles.container}>
@@ -145,7 +145,7 @@ const InputsContainer = ({ navigation }) => {
 
               participants && participants.map(item => {
 
-                return <TouchableOpacity style={styles.offset} onPress={() => removeParticipant()}><Image key={item} source={require("./assets/images/icons/samplePfp.webp")} style={styles.pfp} /><Text key={item} style={styles.participant}>{item}</Text></TouchableOpacity>
+                return <TouchableOpacity style={styles.offset} onPress={() => removeParticipant()}><Image key={item} source={require("../_assets/images/icons/samplePfp.webp")} style={styles.pfp} /><Text key={item} style={styles.participant}>{item}</Text></TouchableOpacity>
 
               })
               : <Text></Text>

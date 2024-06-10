@@ -9,9 +9,9 @@ import {
     TouchableOpacity,
 } from "react-native";
 
-import "../components/firebase"
+import "../../components/firebase"
 
-import { auth, db } from "../components/firebase"
+import { auth, db } from "../../components/firebase"
 
 import SelectDropdown from "react-native-select-dropdown";
 
@@ -94,13 +94,13 @@ const KanbanContent = ({ route, navigation }) => {
 
     return (
         <ImageBackground
-            source={require("./assets/images/bg/Gsg9-scaleform-bg.png")}
+            source={require("../_assets/images/bg/Gsg9-scaleform-bg.png")}
             style={styles.background}
         >
 
             <View style={styles.bgTint}></View>
             <View style={styles.posAbslt}>
-                <Image source={require("./assets/images/logo/logovalve.png")} style={styles.valveLogo} />
+                <Image source={require("../_assets/images/logo/logovalve.png")} style={styles.valveLogo} />
 
                 <View style={styles.afterLogo}>
 

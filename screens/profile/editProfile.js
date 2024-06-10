@@ -16,7 +16,7 @@ const EditProfile = ({ navigation }) => {
     const [username, setUsername] = useState("");
     const [userEmail, setEmail] = useState("");
     const [userUid, setUid] = useState("");
-    const [imgFilePath, setimgFilePath] = useState("./assets/images/icons/samplePfp.webp");
+    const [imgFilePath, setimgFilePath] = useState("./_assets/images/icons/samplePfp.webp");
 
     const [newUsername, setNewUsername] = useState(username);
 
@@ -74,14 +74,14 @@ const EditProfile = ({ navigation }) => {
         return (
 
             <View style={styles.screen}>
-                <Image source={require("../assets/images/logo/logovalve.png")} style={styles.valveLogo}></Image>
+                <Image source={require("../_assets/images/logo/logovalve.png")} style={styles.valveLogo}></Image>
 
                 <View style={styles.returnBtn}>
                     <TouchableOpacity onPress={cancelUserInfoUpdate} ><Text style={styles.buttonText}>Voltar</Text></TouchableOpacity>
                 </View>
 
                 <View style={styles.afterLogo}>
-                    <Image source={require("../assets/images/icons/samplePfp.webp")} style={styles.pfp} />
+                    <Image source={require("../_assets/images/icons/samplePfp.webp")} style={styles.pfp} />
 
                     <Text style={[styles.textColor, styles.userName]}>{newUsername}</Text>
                     <TextInput
