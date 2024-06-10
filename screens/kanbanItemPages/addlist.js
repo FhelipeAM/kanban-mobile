@@ -60,20 +60,15 @@ const Addlist = ({ route, navigation }) => {
 
     var item_uid = Math.random().toString(36).substr(2)
 
-    if (user) {
-
-      db.collection('kanban-itens').doc(item_uid).set({
-        item_name: itemName,
-        item_uid: item_uid,
-        item_status: "A fazer",
-        item_owner_name: username,
-        item_owner_email: userEmail,
-        item_owner_uid: userUid,
-        project_uid: projectId,
-      });
-
-      navigation.navigate("PageList")
-    }
+    db.collection('kanban-itens').doc(item_uid).set({
+      item_name: itemName,
+      item_uid: item_uid,
+      item_status: "A fazer",
+      item_owner_name: username,
+      item_owner_email: userEmail,
+      item_owner_uid: userUid,
+      project_uid: projectId,
+    });
 
 
     navigation.navigate("kanbanContent", { projectId })

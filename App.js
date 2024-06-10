@@ -18,6 +18,7 @@ import EditProfile from "./screens/profile/editProfile";
 import KanbanContent from "./screens/kanbanPages/kanban-content";
 import Main from "./screens/main";
 import Addlist from "./screens/kanbanItemPages/addlist";
+import UpdateList from "./screens/kanbanItemPages/updatelist";
 
 AppRegistry.registerComponent("main", () => App);
 
@@ -145,6 +146,16 @@ export default function App() {
           }}
           listeners={({ navigation }) => ({
             focus: () => handleNavigationChange("editProfile"),
+          })}
+        />
+        <Stack.Screen
+          name="updateList"
+          component={UpdateList}
+          options={{
+            headerShown: false,
+          }}
+          listeners={({ navigation }) => ({
+            focus: () => handleNavigationChange("updateList"),
           })}
         />
       </Stack.Navigator>

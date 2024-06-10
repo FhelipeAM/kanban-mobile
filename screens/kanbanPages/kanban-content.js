@@ -30,6 +30,14 @@ const KanbanContent = ({ route, navigation }) => {
         { title: "Fazendo" },
         { title: "feito" }
     ];
+    
+    const openKanbanItemWithId = (itemUid) => {
+
+        console.log("itemUid" + itemUid)
+
+        navigation.navigate("updateList", { itemUid, projectId })
+
+    }
 
     const ShowFirebaseFetchRes = () => {
         const [KI, setKI] = useState([]);
@@ -61,7 +69,7 @@ const KanbanContent = ({ route, navigation }) => {
         return (
             <View style={{ padding: 10 }}>
                 {KI.map((item, index) => (
-                    <TouchableOpacity onPress={() => { openKanbanWithId(item.item_uid) }}>
+                    <TouchableOpacity onPress={() => { openKanbanItemWithId(item.item_uid) }}>
                         <View key={index} style={{ marginBottom: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5 }}>
                             <Text style={{ color: "black", marginBottom: 5 }}>
                                 item Name: {item.item_name}
