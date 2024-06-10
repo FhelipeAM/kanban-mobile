@@ -13,7 +13,7 @@ const Profile = ({ navigation }) => {
     const [username, setUsername] = useState("");
     const [userEmail, setEmail] = useState("");
     const [userUid, setUid] = useState("");
-    const [imgFilePath, setimgFilePath] = useState("");
+    const [imgFilePath, setimgFilePath] = useState("./assets/images/icons/samplePfp.webp");
 
     const user = auth.currentUser;
 
@@ -61,7 +61,7 @@ const Profile = ({ navigation }) => {
                     <Image source={require("../assets/images/icons/samplePfp.webp")} style={styles.pfp} />
 
                     <Text style={[styles.textColor, styles.userName]}>Olá, {username}</Text>
-                    {/* <Text style={styles.text}>email: {userEmail}</Text> */}
+                    <Text style={styles.textColor}>{userEmail}</Text>
                     {/* <Text>uid: {userUid}</Text> */}
                     <TouchableOpacity style={styles.nonDangerousBtn} onPress={editProfile} ><Text style={styles.buttonText}>Alterar informações</Text></TouchableOpacity>
                     <TouchableOpacity style={styles.nonDangerousBtn} ><Text style={styles.buttonText}>Notificações</Text></TouchableOpacity>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         height: 100,
         borderRadius: 200,
 
-        marginTop: -120
+        marginTop: -100
     },
 
     valveLogo: {

@@ -22,6 +22,14 @@ const Main = ({ navigation }) => {
         return
     }
 
+    const openKanbanWithId = (projectId) => {
+
+        console.log(projectId)
+
+        navigation.navigate("kanbanContent", { projectId })
+
+    }
+
     const UserOwnedKanbans = () => {
         const [UOKInfo, setUOKInfo] = useState([]);
 
@@ -48,19 +56,21 @@ const Main = ({ navigation }) => {
         }, [user.email]);
 
         return (
-            <View style={{ backgroundColor: "white", padding: 10 }}>
+            <View style={{ padding: 10 }}>
                 {UOKInfo.map((item, index) => (
-                    <View key={index} style={{ marginBottom: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5 }}>
-                        <Text style={{ color: "black", marginBottom: 5 }}>
-                            Project Name: {item.project_name}
-                        </Text>
-                        <Text style={{ color: "black", marginBottom: 5 }}>
-                            Project Owner: {item.project_owner_name}
-                        </Text>
-                        <Text style={{ color: "black" }}>
-                            Delivery Date: {item.delivery_date}
-                        </Text>
-                    </View>
+                    <TouchableOpacity onPress={() => openKanbanWithId(item.project_uid)}>
+                        <View key={index} style={{ marginBottom: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5 }}>
+                            <Text style={{ color: "black", marginBottom: 5 }}>
+                                Project Name: {item.project_name}
+                            </Text>
+                            <Text style={{ color: "black", marginBottom: 5 }}>
+                                Project Owner: {item.project_owner_name}
+                            </Text>
+                            <Text style={{ color: "black" }}>
+                                Delivery Date: {item.delivery_date}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
                 ))}
             </View>
         );
@@ -93,19 +103,21 @@ const Main = ({ navigation }) => {
         }, [user.email]);
 
         return (
-            <View style={{ backgroundColor: "white", padding: 10 }}>
+            <View style={{ padding: 10 }}>
                 {UOKInfo.map((item, index) => (
-                    <View key={index} style={{ marginBottom: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5 }}>
-                        <Text style={{ color: "black", marginBottom: 5 }}>
-                            Project Name: {item.project_name}
-                        </Text>
-                        <Text style={{ color: "black", marginBottom: 5 }}>
-                            Project Owner: {item.project_owner_name}
-                        </Text>
-                        <Text style={{ color: "black" }}>
-                            Delivery Date: {item.delivery_date}
-                        </Text>
-                    </View>
+                    <TouchableOpacity onPress={() => openKanbanWithId(item.project_uid)}>
+                        <View key={index} style={{ marginBottom: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5 }}>
+                            <Text style={{ color: "black", marginBottom: 5 }}>
+                                Project Name: {item.project_name}
+                            </Text>
+                            <Text style={{ color: "black", marginBottom: 5 }}>
+                                Project Owner: {item.project_owner_name}
+                            </Text>
+                            <Text style={{ color: "black" }}>
+                                Delivery Date: {item.delivery_date}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
                 ))}
             </View>
         );
@@ -138,7 +150,6 @@ const Main = ({ navigation }) => {
 const styles = StyleSheet.create({
 
     afterLogo: {
-        backgroundColor: "white"
 
     },
 

@@ -1,22 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-    View,
-    Button,
-    Text,
-    StyleSheet,
-    TextInput,
-    Image,
-    ImageBackground,
-    TouchableOpacity,
-  } from "react-native";
+  View,
+  Button,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 
 import SelectDropdown from "react-native-select-dropdown";
 
-const Addlist = () => {
-  const [categoria, setCategoria] = useState("");
-  const [colunas, setColunas] = useState("");
-  const [nomeColuna1, setNomeColuna1] = useState("");
-  const [nomeColuna2, setNomeColuna2] = useState("");
+import { auth, db } from "../components/firebase"
+
+const Addlist = ({ route, navigation }) => {
+
+  const user = auth.currentUser;
+  const [username, setUsername] = useState("");
+  const [userEmail, setEmail] = useState("");
+  const [userUid, setUid] = useState("");
+  const [imgFilePath, setimgFilePath] = useState("./assets/images/icons/samplePfp.webp");
+
+  const { projectId } = route.params;
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const user = auth.currentUser;
+        if (user) {
+          const userDoc = await db.collection('users').doc(user.uid).get();
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            setUsername(userData.username);
+            setEmail(userData.email.toLowerCase());
+            setUid(user.uid)
+            // setimgFilePath(userData.imgUrl)
+          }
+        }
+      }
+      catch (error) {
+        console.log("Erro: ", error);
+      }
+    };
+
+    fetchUserData();
+
+  }, []);
+
+  const [itemName, setitemName] = useState("");
 
   const KanbanTitles = [
     { title: "A fazer" },
@@ -24,61 +56,66 @@ const Addlist = () => {
     { title: "feito" }
   ];
 
+  const submit = () => {
+
+    var item_uid = Math.random().toString(36).substr(2)
+
+    if (user) {
+
+      db.collection('kanban-itens').doc(item_uid).set({
+        item_name: itemName,
+        item_uid: item_uid,
+        item_status: "A fazer",
+        item_owner_name: username,
+        item_owner_email: userEmail,
+        item_owner_uid: userUid,
+        project_uid: projectId,
+      });
+
+      navigation.navigate("PageList")
+    }
+
+
+    navigation.navigate("kanbanContent", { projectId })
+  }
+
+  const cancel = () => {
+    navigation.navigate("kanbanContent", { projectId })
+  }
+
   return (
     <ImageBackground
       // source={require("./assets/images/bg/fundin.webp")}
       style={styles.background}
     >
       <View style={styles.container}>
-        
+
         <View style={styles.box}>
-          
+
           <Text style={styles.textotitulo}>Nova Lista</Text>
 
-          <SelectDropdown
-            data={KanbanTitles}
-            onSelect={(selectedItem, index) => {
-            }}
-            renderButton={(selectedItem, isOpened) => {
-              return (
-                <View style={styles.dropdownButtonStyle}>
-                  {selectedItem && (
-                    <Text style={styles.dropdownButtonTxtStyle}>
-                      {(selectedItem && selectedItem.title) ||
-                        "Escolha a categoria"}
-                    </Text>
-                  )}
-                  <Text style={styles.dropdownButtonTxtStyle}>
-                    {(selectedItem && selectedItem.title) || "Escolha a categoria"}
-                  </Text>
-                </View>
-              );
-            }}
-            renderItem={(item, index, isSelected) => {
-              return (
-                <View
-                  style={{
-                    ...styles.dropdownItemStyle,
-                    ...(isSelected && { backgroundColor: "#D2D9DF" }),
-                  }}
-                >
-                  <Text style={styles.dropdownItemTxtStyle}>{item.title}</Text>
-                </View>
-              );
-            }}
-            showsVerticalScrollIndicator={false}
-            dropdownStyle={styles.dropdownMenuStyle}
-          />
           <TextInput
+            style={styles.input}
+            value={itemName}
+            onChangeText={setitemName}
+            placeholder="Nome da tarefa"
+          />
+
+          {/* <TextInput
             style={styles.input}
             value={colunas}
             onChangeText={setColunas}
             placeholder="Título"
-          />
-          
-          <TouchableOpacity style={styles.al}>
-            <Text style={styles.buttonText}>ADICIONAR</Text>
-          </TouchableOpacity>
+          /> */}
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.al}>
+              <Text style={styles.buttonText2} onPress={submit}>ADICIONAR</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.al}>
+              <Text style={styles.buttonText} onPress={cancel}>CANCELAR</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ImageBackground>
@@ -104,7 +141,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     width: 333,
-    height: 363,
+    height: 269,
   },
   //INPUTS
   input: {
@@ -127,7 +164,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 15, // Aumenta o tamanho da fonte do texto do botão
     backgroundColor: "#F74843",
-    marginTop: 40,
+    marginTop: 20,
     padding: 10,
     display: "flex",
     alignItems: "center",
@@ -137,10 +174,30 @@ const styles = StyleSheet.create({
     overflow: "hidden", // Ensure button corners are rounded
     width: 134,
     height: 40,
-    marginLeft: 80,
+    marginLeft: 20,
 
   },
- 
+  buttonText2: {
+    color: "black",
+    fontSize: 15, // Aumenta o tamanho da fonte do texto do botão
+    backgroundColor: "#ffffff",
+    marginTop: 20,
+    padding: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    borderRadius: 5,
+    overflow: "hidden", // Ensure button corners are rounded
+    width: 134,
+    height: 40,
+
+  },
+
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row"
+  },
 
   dropdownButtonStyle: {
     height: 43,

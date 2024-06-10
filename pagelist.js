@@ -35,7 +35,11 @@ const PageList = ({ navigation }) => {
       />
       <Button
         title="Go to Nova lista"
-        onPress={() => navigation.navigate("addlist")}
+        onPress={() => navigation.navigate("addList")}
+      />
+      <Button
+        title="Go to kanban content"
+        onPress={() => navigation.navigate("kanbanContent")}
       />
     </View>
   );

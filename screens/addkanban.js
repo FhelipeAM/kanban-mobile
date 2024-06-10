@@ -12,8 +12,6 @@ import {
 
 import { auth, db } from "../components/firebase"
 
-import SelectDropdown from "react-native-select-dropdown";
-
 const InputsContainer = ({ navigation }) => {
 
   var i = 0
@@ -29,6 +27,7 @@ const InputsContainer = ({ navigation }) => {
   const [deliverDate, setdeliverDate] = useState("");
   const [participantEmail, setparticipantEmail] = useState("");
 
+  
   const KanbanTitles = [
     { title: "A fazer" },
     { title: "Fazendo" },
@@ -61,14 +60,17 @@ const InputsContainer = ({ navigation }) => {
 
   const createKanban = ({ navigation }) => {
 
+    var project_uid = Math.random().toString(36).substr(2)
+
     if (user) {
 
-      db.collection('kanban').doc(Math.random().toString(36).substr(2)).set({
+      db.collection('kanban').doc(project_uid).set({
         project_name: projName,
         delivery_date: deliverDate,
         project_owner_name: username,
         project_owner_email: userEmail,
         project_owner_uid: userUid,
+        project_uid: project_uid,
         participants: participants
       });
 

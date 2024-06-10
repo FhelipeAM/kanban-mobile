@@ -12,12 +12,12 @@ import SplashScreen from "./screens/splashscreen";
 import Login from "./screens/login";
 import PageList from "./pagelist";
 import AddKanban from "./screens/addkanban";
-import Addlist from "./screens/addlist";
 import AddProfile from "./screens/_Dev_addProfile";
 import Profile from "./screens/profile/profile";
 import EditProfile from "./screens/profile/editProfile";
+import KanbanContent from "./screens/kanban-content";
 import Main from "./screens/main";
-// import addkanban from "./screens/newlist";
+import Addlist from "./screens/addlist";
 
 AppRegistry.registerComponent("main", () => App);
 
@@ -118,7 +118,7 @@ export default function App() {
           })}
         />
         <Stack.Screen
-          name="addlist"
+          name="addList"
           component={Addlist}
           options={{
             headerShown: false,
@@ -130,6 +130,16 @@ export default function App() {
         <Stack.Screen
           name="editProfile"
           component={EditProfile}
+          options={{
+            headerShown: false,
+          }}
+          listeners={({ navigation }) => ({
+            focus: () => handleNavigationChange("editProfile"),
+          })}
+        />
+        <Stack.Screen
+          name="kanbanContent"
+          component={KanbanContent}
           options={{
             headerShown: false,
           }}
