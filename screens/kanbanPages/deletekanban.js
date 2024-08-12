@@ -27,6 +27,7 @@ const InputsContainer = ({ navigation }) => {
   const [deliverDate, setdeliverDate] = useState("");
   const [participantEmail, setparticipantEmail] = useState("");
 
+
   const KanbanTitles = [
     { title: "A fazer" },
     { title: "Fazendo" },
@@ -95,8 +96,10 @@ const InputsContainer = ({ navigation }) => {
   const removeParticipant = (e) => {
 
     setparticipants(
-      participants.splice(e, 0)
+      participants.splice(e.index, e.index + 1)
     )
+
+    i = 0
 
     console.log(e)
     console.log(participants)
@@ -139,9 +142,9 @@ const InputsContainer = ({ navigation }) => {
           {
             participants !== undefined && participants.length > 0 ?
 
-              participants && participants.map((item, index) => {
+              participants && participants.map(item => {
 
-                return <TouchableOpacity key={index} style={styles.offset} onPress={() => removeParticipant(index)}><Image key={index} source={require("../_assets/images/icons/samplePfp.webp")} style={styles.pfp} /><Text key={item} style={styles.participant}>{item}</Text></TouchableOpacity>
+                return <TouchableOpacity style={styles.offset} onPress={() => removeParticipant()}><Image key={item} source={require("../_assets/images/icons/samplePfp.webp")} style={styles.pfp} /><Text key={item} style={styles.participant}>{item}</Text></TouchableOpacity>
 
               })
               : <Text></Text>

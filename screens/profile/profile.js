@@ -54,7 +54,9 @@ const Profile = ({ navigation }) => {
         console.log("imgFilePath: ", imgFilePath);
 
         return (
+            
             <View style={styles.screen}>
+                
                 <Image source={require("../_assets/images/logo/logovalve.png")} style={styles.valveLogo}></Image>
 
                 <View style={styles.afterLogo}>
@@ -64,7 +66,7 @@ const Profile = ({ navigation }) => {
                     <Text style={styles.textColor}>{userEmail}</Text>
                     {/* <Text>uid: {userUid}</Text> */}
                     <TouchableOpacity style={styles.nonDangerousBtn} onPress={editProfile} ><Text style={styles.buttonText}>Alterar informações</Text></TouchableOpacity>
-                    <TouchableOpacity style={styles.nonDangerousBtn} ><Text style={styles.buttonText}>Notificações</Text></TouchableOpacity>
+                    {/* <TouchableOpacity style={styles.nonDangerousBtn} ><Text style={styles.buttonText}>Notificações</Text></TouchableOpacity> */}
                     <TouchableOpacity style={styles.DangerousBtn} onPress={userSignOut}><Text style={[styles.textColor, styles.buttonText]}>Logout</Text></TouchableOpacity>
                 </View>
             </View>
@@ -82,6 +84,7 @@ const Profile = ({ navigation }) => {
 const styles = StyleSheet.create({
 
     screen: {
+        margin:10,
         flex: 1,
         paddingTop: 10,
         alignItems: "center",
@@ -89,7 +92,8 @@ const styles = StyleSheet.create({
     },
 
     pfp: {
-        width: 100,
+        width: 
+        100,
         height: 100,
         borderRadius: 200,
 
@@ -99,10 +103,9 @@ const styles = StyleSheet.create({
     valveLogo: {
         position: "absolute",
         top: 0,
-        marginTop: 40,
+        marginTop: 30,
         width: 105,
         height: 32,
-        color: "white",
 
     },
 

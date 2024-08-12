@@ -26,7 +26,7 @@ AppRegistry.registerComponent("main", () => App);
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState("PageList");
+  const [currentScreen, setCurrentScreen] = useState("Splash");
 
   const user = auth.currentUser;
 
@@ -41,6 +41,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         // DEVELOPER-- switch to Splash after all the software is completed
+        // initialRouteName="PageList"
         initialRouteName="Splash"
         screenOptions={{
           headerShown: false,
@@ -210,7 +211,7 @@ const Navbar = ({ user, cs }) => {
 
         <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}><Image source={require("./screens/_assets/images/icons/npPfp_noUser.jpg")} style={styles.pfpImg}></Image></TouchableOpacity>
         <TouchableOpacity onPress={() => { navigation.navigate('AddKanban') }}><Image source={require("./screens/_assets/images/icons/addkanban.png")} style={styles.pfpImgCenter}></Image></TouchableOpacity>
-        <TouchableOpacity onPress={() => { navigation.navigate('Splash') }}><Image source={require("./screens/_assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('Main') }}><Image source={require("./screens/_assets/images/icons/kanbanlist.png")} style={styles.pfpImg}></Image></TouchableOpacity>
 
       </View>
     );

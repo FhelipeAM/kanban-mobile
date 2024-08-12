@@ -110,8 +110,8 @@ const Main = ({ navigation }) => {
         return (
             <View style={{ padding: 10 }}>
                 {UOKInfo.map((item, index) => (
-                    <TouchableOpacity onPress={() => openKanbanWithId(item.project_uid)}>
-                        <View key={index} style={styles.kanbanItemContainer}>
+                    <TouchableOpacity key={index} onPress={() => openKanbanWithId(item.project_uid)}>
+                        <View style={styles.kanbanItemContainer}>
 
                             <View style={styles.DFlex}>
                                 {/* <View style={styles.colorDivCont}>
@@ -167,7 +167,7 @@ const Main = ({ navigation }) => {
         return (
             <View style={{ padding: 10 }}>
                 {UOKInfo.map((item, index) => (
-                    <TouchableOpacity onPress={() => openKanbanWithId(item.project_uid)}>
+                    <TouchableOpacity key={index} onPress={() => openKanbanWithId(item.project_uid)}>
                         <View key={index} style={styles.kanbanItemContainer}>
 
                             <View style={styles.DFlex}>
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     valveLogo: {
         position: "absolute",
         top: 0,
-        marginTop: 40,
+        marginTop: 20,
         width: 105,
         height: 32
 

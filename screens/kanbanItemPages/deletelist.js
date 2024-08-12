@@ -101,7 +101,7 @@ const DeleteList = ({ route, navigation }) => {
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.al}>
-              <Text style={styles.buttonText2} onPress={submit}>EDITAR</Text>
+              <Text style={styles.buttonText2} onPress={submit}>EXCLUIR</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.al}>
               <Text style={styles.buttonText} onPress={cancel}>CANCELAR</Text>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     width: 333,
-    height: 329,
+    height: "28%",
   },
   //INPUTS
   input: {

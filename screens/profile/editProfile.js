@@ -79,10 +79,6 @@ const EditProfile = ({ navigation }) => {
             <View style={styles.screen}>
                 <Image source={require("../_assets/images/logo/logovalve.png")} style={styles.valveLogo}></Image>
 
-                <View style={styles.returnBtn}>
-                    <TouchableOpacity onPress={cancelUserInfoUpdate} ><Text style={styles.buttonText}>Voltar</Text></TouchableOpacity>
-                </View>
-
                 <View style={styles.afterLogo}>
                     <Image source={require("../_assets/images/icons/samplePfp.webp")} style={styles.pfp} />
 
@@ -122,7 +118,6 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 200,
-        color: "white",
 
         marginTop: 20
     },
@@ -133,21 +128,9 @@ const styles = StyleSheet.create({
         marginTop: 40,
         width: 105,
         height: 32,
-        color: "white",
 
     },
 
-    returnBtn: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        marginTop: 80,
-        marginLeft: 30,
-        color: "white",
-
-        backgroundColor: "white"
-
-    },
 
     userName: {
         color: "#ffffff",
@@ -159,7 +142,9 @@ const styles = StyleSheet.create({
     },
 
     buttonText: {
-        fontSize: 20
+        fontSize: 20,
+        
+
     },
 
     afterLogo: {
@@ -187,6 +172,7 @@ const styles = StyleSheet.create({
     },
 
     input: {
+        fontSize: 19,
         width: 254,
         height: 66,
         borderWidth: 2,

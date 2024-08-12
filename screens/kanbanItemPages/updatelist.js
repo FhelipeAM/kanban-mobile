@@ -70,7 +70,7 @@ const UpdateList = ({ route, navigation }) => {
   const KanbanTitles = [
     { title: "A fazer" },
     { title: "Fazendo" },
-    { title: "feito" }
+    { title: "Feito" }
   ];
 
   const submit = () => {

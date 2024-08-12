@@ -124,7 +124,15 @@ const Login = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          Esqueci minha Senha
+          Nos contate em caso de erros !!!
+        </Text>
+        <Text
+          style={{
+            color: "white",
+            alignItems: "center",
+          }}
+        >
+          ☎️📞0800 724 05 55
         </Text>
 
         {/* <Text
