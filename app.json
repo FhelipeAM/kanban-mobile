@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "valve-manager",
+    "name": "Valve Kanban",
     "slug": "valve-manager",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/logo/logovalve.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/logo/logovalve.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logo/logovalve.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.fhelipeam.valvemanager"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/logo/logovalve.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "453c8232-7ff0-444e-9d6c-6ff5461e7a6c"
+      }
     }
   }
 }

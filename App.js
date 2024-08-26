@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler';
+
 import React, { useState } from "react";
 import { AppRegistry, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 
@@ -77,7 +79,7 @@ export default function App() {
             headerShown: false,
           }}
           listeners={({ navigation }) => ({
-            focus: () => handleNavigationChange("PageList"),
+            focus: () => handleNavigationChange("Main"),
           })}
         />
         <Stack.Screen
